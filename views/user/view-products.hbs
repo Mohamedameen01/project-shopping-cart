@@ -1,0 +1,18 @@
+<section class="container mt-5 d-flex flex-wrap ">
+    {{#each products}}
+    <div class="card m-3 p-2" style="width: 18rem; height:25rem;     ">
+        <img 
+            style="width: fit-content; height: 150px;" 
+            src="/product-images/{{this._id}}.jpg" 
+            class="card-img-top mx-auto" 
+            alt="{{this.title}}" 
+        >
+        <div class="card-body">
+            <h5 class="card-title">{{this.title}}</h5>
+            <p class="card-text">{{this.description}}</p>
+            <p class="fw-bolder "><span>&#8377;</span>{{ this.price }}</p>
+            <a href="#" class="btn btn-primary">Add to cart</a>
+        </div>
+    </div>
+    {{/each}}
+</section>

@@ -4,16 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('express-handlebars');
-var fileUpload = require('express-fileupload')
+var fileUpload = require('express-fileupload');
 var app = express();
 var db = require('./config/connection')
+var session = require('express-session');
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
 app.engine('hbs', hbs.engine({
   extname: 'hbs',
   defaultLayout: 'layout',
@@ -27,6 +30,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
+app.use(session({secret:"#gta", cookie:{maxAge:60000}}))
+
 db.connect((err) => {
   if(err) console.log("Connection Error: " + err);
   else console.log("Database Connected");

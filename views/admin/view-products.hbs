@@ -16,12 +16,12 @@
             <tbody>
                 {{#each products}}
                 <tr>
-                    <th scope="row">{{this.key}}</th>
+                    <th scope="row">{{@index}}</th>
                     <td>{{this.title}}</td>
                     <td>{{this.category}}</td>
                     <td>{{this.description}}</td>
                     <td>
-                        <img src="{{this.imageUrl}}" alt="{{this.title}}" style="width: 50; height: 50px;">
+                        <img src="/product-images/{{this._id}}.jpg" alt="{{this.title}}" style="width: 50; height: 50px;">
                     </td>
                 </tr>
                 {{/each}}
