@@ -37,6 +37,8 @@ db.connect((err) => {
   else console.log("Database Connected");
 })
 
+
+
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
 

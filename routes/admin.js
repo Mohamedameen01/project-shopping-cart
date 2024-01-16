@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var uploadProducts = require('../uploader/uploadProducts')
+const productFuncs = require('../uploader/productFuncs')
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  uploadProducts.getAllProduct().then(products => {
+  productFuncs.getAllProduct().then(products => {
     res.render('admin/view-products', { admin: true, products });
   })
 });
@@ -15,7 +15,7 @@ router.get('/add-product', function (req, res) {
 
 router.post('/add-product', (req, res) => {
 
-  uploadProducts.addProduct(req.body, (id) => {
+  productFuncs.addProduct(req.body, (id) => {
     let image = req.files.image
     image.mv('./public/product-images/' + id + ".jpg", (err) => {
       if (!err) {
@@ -27,5 +27,29 @@ router.post('/add-product', (req, res) => {
   })
 })
 
+router.get('/delete-product/', (req, res) => {
+  const proId = req.query.id;
+  productFuncs.deleteProduct(proId).then(response => {
+    res.redirect('/admin')
+  })
+})
+
+router.get('/edit-product/', (req, res) => {
+  const proId = req.query.id;
+  productFuncs.getProductDetails(proId).then(product => {
+    res.render('admin/edit-product', {product})
+  })
+})
+
+router.post('/edit-product/', (req, res) => {
+  const proId = req.query.id;
+  productFuncs.updateProduct(proId, req.body).then(()=>{
+    res.redirect('/')
+    if(req.files.image) {
+      let image = req.files.image;
+      image.mv('./public/product-images/'+ proId + '.jpg')
+    }
+  })
+})
 
 module.exports = router;
