@@ -30,12 +30,17 @@
 
             <div class="form-group m-3">
                 <label for="image" style="display:block;">Image</label>
-                <img src="/product-images/{{product._id}}.jpg" style="width: 100px; height:auto;" alt="{{product.title}}">
-                <input type="file" class="form-control" id="image" name="image" >
+                <img src="/product-images/{{product._id}}.jpg" style="width: 100px; height:auto;" alt="{{product.title}}" id="imgView">
+                <input type="file" class="form-control" id="image" name="image" onchange="viewImage(event)" >
             </div>
 
             <button type="submit" class="btn btn-primary m-3">Submit</button>
         </form>
     </div>
-
 </section>
+
+<script>
+    function viewImage(e) {
+        document.getElementById('imgView').src=URL.createObjectURL(e.target.files[0])
+    }
+</script>
