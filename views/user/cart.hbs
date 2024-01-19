@@ -1,1 +1,34 @@
-<h1>It's Cart Page</h1>
+<section>
+  <div class="container ">
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Title</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {{#each cartItems}}
+        <tr>
+          <td scope="col">
+            <img src="/product-images/{{this.product._id}}.jpg" alt="" style="width: 70px; height:70px;">
+          </td>
+          <td scope="col">{{this.product.title}}</td>
+          <td scope="col">{{this.product.price}}</td>
+          <td scope="col">
+            <button class="cart-item-count mr-3" onclick="handleClick('{{this._id}}','{{this.product._id}}',-1)">-</button>
+            <button class="item-quantity">{{this.quantity}}</button>
+            <button class="cart-item-count ml-3" onclick="handleClick('{{this._id}}','{{this.product._id}}',1)">+</button>
+          </td>
+          <td><a href="" class="btn btn-danger">Remove</a></td>
+        </tr>
+      {{/each}}
+      </tbody>
+      
+    </table>
+  </div>
+</section>
+

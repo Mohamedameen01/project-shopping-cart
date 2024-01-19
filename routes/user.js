@@ -13,10 +13,15 @@ const verifyLogin = (req, res, next) => {
   }
 }
 
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res) {
   let user = req.session.user;
+  let cartCounts = null;
+  if(user) {
+    cartCounts = await productFuncs.getCartCounts(req.session.user._id)
+  }
+
   productFuncs.getAllProduct().then( products => {
-    res.render('user/view-products', { products, user });
+    res.render('user/view-products', { products, user, cartCounts });
   })
 });
 
@@ -58,16 +63,24 @@ router.get('/logout', (req,res) => {
   res.redirect('/')
 })
 
-router.get('/cart', verifyLogin, (req, res) => {
+router.get('/cart', verifyLogin, async(req, res) => {
+  
   productFuncs.getCartProducts(req.session.user._id).then(response => {
-    console.log(response)
-    res.render('user/cart')   
+    res.render('user/cart', {user:req.session.user, cartItems:response })   
   })
 })
 
-router.get('/add-to-cart/',verifyLogin, (req, res) => {
+router.get('/add-to-cart/', (req, res) => {
+  console.log("me"+req.query.id)
   productFuncs.addToCart(req.query.id, req.session.user._id).then(() => {
-    res.redirect('/')
+    res.json({status: true})
+  })
+})
+
+router.post('/handle-product-quantity', (req, res) => {
+  // console.log(req.body);
+  productFuncs.changeProductQuantity(req.body).then(() => {
+    res.json({status: true})
   })
 })
 

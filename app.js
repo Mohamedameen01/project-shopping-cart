@@ -30,7 +30,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
-app.use(session({secret:"#gta", cookie:{maxAge:60000}}))
+
+app.use(session({
+  secret:"#gta",
+  cookie:{ maxAge:1000 * 60 * 60 * 24 * 7 },
+  resave: true,
+  saveUninitialized: false,
+}))
 
 db.connect((err) => {
   if(err) console.log("Connection Error: " + err);
