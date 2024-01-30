@@ -1,20 +1,25 @@
-<section class="container mt-5 d-flex flex-wrap ">
+<section class="container mt-5 d-flex justify-content-center justify-content-md-start flex-wrap ">
     {{#each products}}
-    <div class="card m-3 p-2" style="width: 18rem; height:25rem;     ">
-        <img 
-            style="width: fit-content; height: 150px;" 
-            src="/product-images/{{this._id}}.jpg" 
-            class="card-img-top mx-auto" 
-            alt="{{this.title}}" 
-        >
+    <div class="card m-3 p-2" style="width: 18rem; min-height:23rem; max-height:fit-content;">
+        <img style="width: fit-content; height: 150px;" src="/product-images/{{this._id}}.jpg"
+            class="card-img-top mx-auto" alt="{{this.title}}">
         <div class="card-body">
             <h5 class="card-title">{{this.title}}</h5>
-            <p class="card-text">{{this.description}}</p>
-            <p class="fw-bolder "><span>&#8377;</span>{{ this.price }}</p>
-            <button onclick="addToCart('{{this._id}}')" class="btn btn-primary">Add to Cart</button>
+            <p class="card-text" style="min-height: 100px;">{{this.description}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="fw-bolder "><span>&#8377;</span>{{ this.price }}</p>
+                {{#if ../user}}
+                <button onclick="addToCart('{{this._id}}')" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-cart" viewBox="0 0 16 16">
+                        <path
+                            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                    </svg>
+                </button>
+                {{/if}}
+
+            </div>
         </div>
     </div>
     {{/each}}
 </section>
-
-

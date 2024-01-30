@@ -1,4 +1,6 @@
+
 function addToCart(proId) {
+    console.log(proId);
     $.ajax({
         url: '/add-to-cart?id=' + proId,
         method: 'get',
@@ -10,13 +12,34 @@ function addToCart(proId) {
             }
         }
     })
-
 }
 
-function handleClick(cartId, prodId, count) {
+function handleClick(cartId, prodId, userId, count) {
+    let quantity = parseInt(document.getElementById(prodId).innerHTML)
+    count = parseInt(count)
     $.ajax({
         url: '/handle-product-quantity',
-        data: { cartId, prodId, count},
+        data: { cartId, prodId, userId, count, quantity },
+        method: 'post',
+        success(response) {
+            if (response.removeProduct == true) {
+                location.reload()
+            } else {
+                document.getElementById(prodId).innerHTML = quantity + count
+                document.getElementById("total").innerHTML = response.total
+            }
+        }
+    })
+}
+
+function handleRemove(cartId, prodId) {
+    console.log(cartId, prodId);
+    $.ajax({
+        url: '/handle-cart-product',
+        data: {
+            cart: cartId,
+            product: prodId
+        },
         method: 'post',
         success(response) {
             if (response.status) {
@@ -25,3 +48,36 @@ function handleClick(cartId, prodId, count) {
         }
     })
 }
+
+
+
+$("#form-checkout").submit(e => {
+    e.preventDefault()
+    $.ajax({
+        url: '/place-order',
+        method: 'post',
+        data: $("#form-checkout").serialize(),
+        success(response) {
+            if (response.status) {
+                alert("success")
+                location.href = '/order-info?id=' + response.id
+            }
+        }
+    })
+})
+
+$(function () {
+    $('#myTable').DataTable();
+});
+
+function updateOrderStatus(orderId) {
+    $.ajax({
+        url: '/update-order-status',
+        data: {orderId},
+        method: 'post',
+        success(response){
+            alert(response)
+        }
+    })
+}
+

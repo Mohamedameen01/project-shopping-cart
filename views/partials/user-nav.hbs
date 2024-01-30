@@ -1,20 +1,20 @@
 <header>
-    <div class="container">
+    <div class="container mt-2">
         <div class=" d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="/" class="navbar-brand fs-5 fw-bold">Shopping Cart</a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto ms-4 mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 link-secondary">Products</a></li>
+                <li><a href="/" class="nav-link px-2 link-secondary">Products</a></li>
                 <li>
                     <a href="/cart" class="nav-link px-2 link-body-emphasis position:relative me-3">
                         Cart<span class="position-absolute rounded-circle  badge bg-success" id="cart-counts">{{cartCounts}}</span>
                     </a>
                 </li>
                 {{#if user}}
-                    <li><a href="#" class="nav-link px-2 link-body-emphasis">Orders</a></li>
+                    <li><a href="/view-orders" class="nav-link px-2 link-body-emphasis">Orders</a></li>
                 {{/if}}
             </ul>
-
+        
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
@@ -24,11 +24,11 @@
                         Account
                     {{/if}}
                 </button>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu bg-dark ">
                     {{#if user}}
-                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        <li><a class="dropdown-item text-light fs-6 fw-medium bg-dark" href="/logout">Logout</a></li>
                     {{else}}
-                        <li><a class="dropdown-item" href="/login">Login</a></li>
+                        <li><a class="dropdown-item text-light fs-6 fw-medium bg-dark" href="/login">Login</a></li>
                     {{/if}}
                 </ul>
             </div>

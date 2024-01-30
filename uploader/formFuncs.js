@@ -4,7 +4,7 @@ const db = require('../config/connection')
 const bcrypt = require('bcrypt');
 
 module.exports = {
-    doSignup(userData) {
+    doUserSignup(userData) {
         return new Promise(async (resolve, reject) => {
             userData.password = await bcrypt.hash(userData.password, 10)
             db.get().collection(collections.USERS_COLLECTION).insertOne(userData)
@@ -13,8 +13,8 @@ module.exports = {
             })
         })
     },
-    doLogin(userData) {
-        let loginStatus = false;
+    doUserLogin(userData) {
+        
         const response = {}
 
         return new Promise(async (resolve, reject) => {
@@ -36,5 +36,27 @@ module.exports = {
                 resolve({ status: false })
             }
         })
-    }
+    },
+    doAdminLogin(adminData) {
+        const response = {}
+        return new Promise(async (resolve, reject) => {
+            const admin = await db.get().collection(collections.ADMIN_COLLECTION).findOne({ email: adminData.email })
+            if (admin) {
+                bcrypt.compare(adminData.password, admin.password).then(status => {
+                    if (status) {
+                        console.log("Login Successful"+ admin)
+                        response.admin = admin;
+                        response.status = true;
+                        resolve(response)
+                    } else {
+                        console.log("Login Failed");
+                        resolve({ status: false })
+                    }
+                })
+            } else {
+                console.log("User is Not Valid")
+                resolve({ status: false })
+            }
+        })
+    },
 }

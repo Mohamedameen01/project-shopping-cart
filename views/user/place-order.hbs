@@ -1,0 +1,45 @@
+<section class="container">
+    <form id="form-checkout">
+        <div class="row mt-5">
+            <h1 class="text-center text-md-start">Enter Delivery Details</h1>
+            <div class="col-md-6 ">
+                <div class="form-group my-3">
+                    <label for="exampleInputAddress" class="mb-2">Address</label>
+                    <input type="text" class="form-control" name="address" id="exampleInputAddress"
+                        placeholder="Enter your address" required>
+                </div>
+                <div class="form-group my-3">
+                    <label for="exampleInputPincode" class="mb-2">Pin Code</label>
+                    <input type="text" class="form-control" name="pincode" id="exampleInputPincode"
+                        placeholder="Pincode" required>
+                </div>
+                <div class="form-group my-3">
+                    <label for="exampleInputMobileNo" class="mb-2">Mobile No</label>
+                    <input type="text" class="form-control" name="mobile" id="exampleInputMobileNo"
+                        placeholder="Mobile No" required>
+                    <input type="text" name="userId" value="{{user._id}}" hidden>
+                </div>
+            </div>
+            <div class="col-md-6 ">
+                <div class="border border-primary mx-auto my-4" style="height: 280px; width:400px;">
+                    <div class="m-4">
+                        <h4 class="fw-medium">Total Amount : Rs.{{amount}}</h4>
+                        <hr>
+                        <fieldset class="mt-4">
+                            <legend>Payment Method</legend>
+                            <label for="paymentMethod" class="d-block">
+                                <input type="radio" name="payment-method" id="codPay" value="COD" checked>
+                                COD
+                            </label>
+                            <label for="paymentMethod">
+                                <input type="radio" name="payment-method" id="onlinePay" value="Online-Payment">
+                                Online Payment
+                            </label>
+                        </fieldset>
+                        <button type="submit" class="btn btn-primary float-end mt-4">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

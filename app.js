@@ -8,6 +8,7 @@ var fileUpload = require('express-fileupload');
 var app = express();
 var db = require('./config/connection')
 var session = require('express-session');
+var Handlebars = require('handlebars');
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
@@ -34,8 +35,8 @@ app.use(fileUpload())
 app.use(session({
   secret:"#gta",
   cookie:{ maxAge:1000 * 60 * 60 * 24 * 7 },
-  resave: true,
-  saveUninitialized: false,
+  resave: false,
+  saveUninitialized: true,
 }))
 
 db.connect((err) => {
@@ -63,5 +64,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+Handlebars.registerHelper("inc", function(value, options) {
+  return parseInt(value) + 1
+})
 
 module.exports = app;

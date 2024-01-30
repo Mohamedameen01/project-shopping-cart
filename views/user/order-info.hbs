@@ -1,0 +1,39 @@
+<section>
+    <div class="container mt-5">
+        <h2 class="text-center">Order Placed Successfully.</h2>
+        <div class="border border-dark mx-auto mt-5"
+            style="min-width: 50%; max-width: fit-content; min-height:50%; max-height: fit-content;">
+            <div class="m-3">
+                <h3 class="fw-normal m-3 fs-4">Order Details</h3>
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Order Id</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Ordered Time</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#with order}}
+                        <tr>
+                            <td>{{_id}}</td>
+                            {{#with deliveryDetails}}
+                            <td>{{address}},{{pincode}},{{mobile}}</td>
+                            {{/with}}
+                            <td>{{date}}</td>
+                            <td>{{total}}</td>
+                            <td>{{status}}</td>
+                        </tr>
+                        {{/with}}
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end gap-3">
+                    <a href="/view-orders" class="btn btn-primary">View Orders</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
