@@ -37,6 +37,15 @@ module.exports = {
             }
         })
     },
+    doAdminSignup(userData) {
+        return new Promise(async (resolve, reject) => {
+            userData.password = await bcrypt.hash(userData.password, 10)
+            db.get().collection(collections.ADMIN_COLLECTION).insertOne(userData)
+            .then(data => {
+                resolve(data)
+            })
+        })
+    },
     doAdminLogin(adminData) {
         const response = {}
         return new Promise(async (resolve, reject) => {
