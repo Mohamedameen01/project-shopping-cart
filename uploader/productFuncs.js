@@ -336,8 +336,6 @@ module.exports = {
         .find({ userId: new ObjectId(userId) })
         .toArray()
         .then((response) => {
-          console.log("me");
-          console.log(response);
           resolve(response);
         });
     });

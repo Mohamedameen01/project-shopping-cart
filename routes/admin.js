@@ -108,8 +108,5 @@ router.get("/all-orders", verifyAdminLogin, (req, res) => {
   });
 });
 
-router.post("/update-order-status", verifyAdminLogin, (req, res) => {
-  console.log("clicks");
-});
 
 module.exports = router;
