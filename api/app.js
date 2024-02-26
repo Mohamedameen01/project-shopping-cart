@@ -10,7 +10,7 @@ const db = require("./config/connection");
 const session = require("express-session");
 const Handlebars = require("handlebars");
 const dotenv = require("dotenv");
-
+const cors = require('cors');
 const userRouter = require("./routes/user");
 const adminRouter = require("./routes/admin");
 
@@ -30,6 +30,7 @@ app.engine(
   })
 );
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
