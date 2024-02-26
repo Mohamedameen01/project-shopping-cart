@@ -1,7 +1,8 @@
 const { resolve } = require('promise');
+const bcrypt = require('bcrypt');
+
 const collections = require('../config/collections')
 const db = require('../config/connection')
-const bcrypt = require('bcrypt');
 
 module.exports = {
     doUserSignup(userData) {
