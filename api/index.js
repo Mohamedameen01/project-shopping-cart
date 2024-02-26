@@ -10,7 +10,7 @@ const db = require("./config/connection");
 const session = require("express-session");
 const Handlebars = require("handlebars");
 const dotenv = require("dotenv");
-const cors = require('cors');
+const cors = require("cors");
 const userRouter = require("./routes/user");
 const adminRouter = require("./routes/admin");
 
@@ -30,8 +30,13 @@ app.engine(
   })
 );
 
-const corsConfig = { origin: "*", credential: true, methods : ['GET','POST','PUT','DELETE']};
+const corsConfig = {
+  origin: "*",
+  credential: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+};
 
+app.options("", cors(corsConfig));
 app.use(cors(corsConfig));
 app.use(logger("dev"));
 app.use(express.json());
